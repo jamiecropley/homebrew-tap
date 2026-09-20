@@ -19,8 +19,10 @@ class Kore < Formula
     ENV.deparallelize { system "make", "PREFIX=#{prefix}", "TASKS=1" }
     system "make", "install", "PREFIX=#{prefix}"
 
-    inreplace [pkgshare/"features", pkgshare/"linker"],
-              openssl.prefix.realpath, openssl.opt_prefix if OS.mac?
+    if OS.mac?
+      inreplace [pkgshare/"features", pkgshare/"linker"],
+                openssl.prefix.realpath, openssl.opt_prefix
+    end
   end
 
   test do
